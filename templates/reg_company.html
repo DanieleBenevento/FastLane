@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+
+
+
+{% block content %}
+    <div class="row">
+    <div class="col"></div>
+    <div class="col">
+        <p>Please provide your information, then check your mail and activate your account.</p>
+        <form action="" method="post">
+          <div class="form-group">
+            {{ formReg.name_company.label }}
+              {{ formReg.name_company(class='form-control',placeholder='please write your company name') }}
+              {% for error in formReg.name_company.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                    </div>
+                {% endfor %}
+          </div>
+
+        <div class="form-group">
+            {{ formReg.email.label }}
+              {{ formReg.email(class='form-control',placeholder='please provide your email') }}
+                {% for error in formReg.email.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                    </div>
+                {% endfor %}
+          </div>
+        <div class="form-group">
+            {{ formReg.email_admin.label }}
+              {{ formReg.email_admin(class='form-control',placeholder='please provide your adminstrator email') }}
+                {% for error in formReg.email_admin.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                    </div>
+                {% endfor %}
+          </div>
+          <div class="form-group">
+            {{ formReg.password.label }}
+              {{ formReg.password(class='form-control',placeholder='please provide your password') }}
+                {% for error in formReg.password.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                    </div>
+                {% endfor %}
+          </div>
+           <div class="form-group">
+            {{ formReg.confirm_password.label }}
+              {{ formReg.confirm_password(class='form-control',placeholder='please provide again your password') }}
+                {% for error in formReg.confirm_password.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                    </div>
+                {% endfor %}
+          </div>
+        <div class="form-group">
+        {{ formReg.country.label }}
+        <p><select>
+            {% for x in countries_list %}
+            <option value="{{ x }}"{% if loop.first %} SELECTED{% endif %}>{{ x }}</option>
+        {% endfor %}
+        </select></p>
+        </div>
+        <div class="form-group">
+            {{ formReg.city.label }}
+              {{ formReg.city(class='form-control',placeholder='please provide your City') }}
+                {% for error in formReg.city.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                    </div>
+                {% endfor %}
+          </div>
+        <div class="form-group">
+            {{ formReg.address.label }}
+              {{ formReg.address(class='form-control',placeholder='please provide your address') }}
+                {% for error in formReg.address.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                    </div>
+                {% endfor %}
+          </div>
+        <div class="form-group">
+            {{ formReg.vat_code.label }}
+              {{ formReg.vat_code(class='form-control',placeholder='please provide your VAT code') }}
+                {% for error in formReg.vat_code.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                    </div>
+                {% endfor %}
+          </div>
+        <div class="form-group">
+            {{ formReg.phone.label }}
+              {{ formReg.phone(class='form-control',placeholder='please provide your phone number') }}
+                {% for error in formReg.phone.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                    </div>
+                {% endfor %}
+          </div>
+      <div class="form-group">
+            {{ formReg.web_site.label }}
+              {{ formReg.web_site(class='form-control',placeholder='please provide your web site') }}
+                {% for error in formReg.web_site.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ error }}
+                    </div>
+                {% endfor %}
+          </div>
+            {{ formReg.submit(class='btn btn-primary') }}
+            {{ formReg.hidden_tag() }}
+        </form>
+    </div>
+      <div class="col"></div>
+
+
+
+
+
+    </div>
+{% endblock content %}
