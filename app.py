@@ -3,7 +3,8 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_utils import database_exists
 from flask_bcrypt import Bcrypt
-from form import COUNTRIES
+from utilities import COUNTRIES
+
 
 app = Flask(__name__)
 db = SQLAlchemy(app)
@@ -13,6 +14,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///fastlane.db'
 
 Bootstrap(app)
 bcrypt = Bcrypt(app)
+
+
 
 
 class PrivateCustomer(db.Model):
@@ -68,12 +71,13 @@ def register():
         new_customer = PrivateCustomer(name=form_private.name.data, username=form_private.username.data,
                                        password=hashed_pwd, email=form_private.email.data,
                                        phone_num=form_private.phone.data,
-                                       country=dict(COUNTRIES).get(form_private.country.data), address=form_private.address.data,
+                                       country=form_private.country.data,
+                                       address=form_private.address.data,
                                        type='Private')
         db.session.add(new_customer)
         db.session.commit()
         return redirect('login')
-    return render_template('reg_private.html', formReg=form_private, countries_list=COUNTRIES)
+    return render_template('reg_private.html', formReg=form_private, countries_list=form.COUNTRIES)
 
 
 @app.route('/register_company', methods=['POST', 'GET'])
@@ -83,14 +87,14 @@ def register_company():
         hashed_pwd = bcrypt.generate_password_hash(form_company.password.data)
         new_customer = PrivateCustomer(name_company=form_company.name_company.data, password=hashed_pwd,
                                        email=form_company.email.data, phone_num=form_company.phone.data,
-                                       country=dict(COUNTRIES).get(form_company.country.data), city=form_company.city.data,
+                                       country=form_company.country.data, city=form_company.city.data,
                                        address=form_company.address.data, vat_code=form_company.vat_code.data,
                                        web_site=form_company.web_site.data, email_amm=form_company.email_amm.data,
                                        type='Company')
         db.session.add(new_customer)
         db.session.commit()
         return redirect('login')
-    return render_template('reg_company.html', formReg=form_company, countries_list=COUNTRIES)
+    return render_template('reg_company.html', formReg=form_company, countries_list=form.COUNTRIES)
 
 
 @app.route('/login', methods=['POST', 'GET'])
